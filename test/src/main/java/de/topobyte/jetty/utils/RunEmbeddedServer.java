@@ -60,7 +60,7 @@ public class RunEmbeddedServer
 		// Make sure default servlet exists
 		JettyUtils.addDefaultServlet(servletContextHandler);
 
-		JettyUtils.setTracking(servletContextHandler,
+		JettyUtils.setSessionTracking(servletContextHandler,
 				SessionTrackingMode.COOKIE);
 
 		Path pathProject = SystemPaths.CWD;

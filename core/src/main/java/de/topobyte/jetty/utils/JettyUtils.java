@@ -29,7 +29,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 public class JettyUtils
 {
 
-	public static void setTracking(ServletContextHandler servletContextHandler,
+	public static void setSessionTracking(ServletContextHandler servletContextHandler,
 			SessionTrackingMode mode)
 	{
 		Set<SessionTrackingMode> sessionTracking = new HashSet<>();
