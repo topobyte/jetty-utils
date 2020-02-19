@@ -24,6 +24,7 @@ import javax.servlet.SessionTrackingMode;
 
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 
 public class JettyUtils
 {
@@ -36,6 +37,20 @@ public class JettyUtils
 		servletContextHandler.setSessionHandler(new SessionHandler());
 		servletContextHandler.getSessionHandler()
 				.setSessionTrackingModes(sessionTracking);
+	}
+
+	public static void addDefaultServlet(
+			ServletContextHandler servletContextHandler)
+	{
+		ServletHolder holder = new ServletHolder();
+		holder.setName("default");
+		holder.setClassName("org.eclipse.jetty.servlet.DefaultServlet");
+		holder.setInitParameter("dirAllowed", "false");
+		holder.setInitOrder(1);
+		servletContextHandler.getServletHandler().addServletWithMapping(holder,
+				"/");
+		servletContextHandler.getServletHandler().getServletMapping("/")
+				.setDefault(true);
 	}
 
 }

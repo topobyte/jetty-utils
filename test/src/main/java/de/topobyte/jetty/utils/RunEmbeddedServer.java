@@ -27,7 +27,6 @@ import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.PathResource;
 import org.eclipse.jetty.util.resource.ResourceCollection;
 
@@ -59,15 +58,7 @@ public class RunEmbeddedServer
 		servletContextHandler.addServlet(IndexServlet.class.getName(), "/*");
 
 		// Make sure default servlet exists
-		ServletHolder holder = new ServletHolder();
-		holder.setName("default");
-		holder.setClassName("org.eclipse.jetty.servlet.DefaultServlet");
-		holder.setInitParameter("dirAllowed", "false");
-		holder.setInitOrder(1);
-		servletContextHandler.getServletHandler().addServletWithMapping(holder,
-				"/");
-		servletContextHandler.getServletHandler().getServletMapping("/")
-				.setDefault(true);
+		JettyUtils.addDefaultServlet(servletContextHandler);
 
 		JettyUtils.setTracking(servletContextHandler,
 				SessionTrackingMode.COOKIE);
