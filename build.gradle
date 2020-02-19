@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'http://mvn.topobyte.de' }
+    }
+    dependencies {
+        classpath 'com.craigburke.gradle:client-dependencies:1.4.0'
+        classpath 'de.topobyte:gradle-generate-favicons-plugin:0.0.2'
+        classpath 'de.topobyte:gradle-cache-busting-plugin:0.0.3'
+    }
+}
+
 wrapper {
     gradleVersion = '5.2.1'
 }
@@ -8,8 +20,6 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
     apply plugin: 'maven'
 
     repositories {
@@ -21,7 +31,23 @@ subprojects {
         }
         mavenCentral()
     }
+}
 
+
+project(':jetty-utils') {
+    apply plugin: 'java'
+    apply plugin: 'eclipse-wtp'
+}
+
+project(':jetty-utils-test') {
+    apply plugin: 'war'
+    apply plugin: 'eclipse-wtp'
+    apply plugin: 'com.craigburke.client-dependencies'
+    apply plugin: 'de.topobyte.generate-favicons-gradle-plugin'
+    apply plugin: 'de.topobyte.cache-busting-gradle-plugin'
+}
+
+subprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 }
