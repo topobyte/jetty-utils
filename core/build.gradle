@@ -34,3 +34,5 @@ afterEvaluate { project ->
         }
     }
 }
+
+eclipse.project.name = 'jetty-utils'
