@@ -1,0 +1,3 @@
+include 'core', 'test'
+project(':core').name = 'jetty-utils'
+project(':test').name = 'jetty-utils-test'
