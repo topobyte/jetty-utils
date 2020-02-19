@@ -4,10 +4,9 @@ if (project.hasProperty("topobyte")) {
 }
 
 dependencies {
-    // TODO: upgrade to 9.4.26.v20200117
-    compile 'org.eclipse.jetty:jetty-server:9.4.12.v20180830'
-    compile 'org.eclipse.jetty:jetty-servlet:9.4.12.v20180830'
-    compile 'org.eclipse.jetty:jetty-webapp:9.4.12.v20180830'
+    compile 'org.eclipse.jetty:jetty-server:9.4.26.v20200117'
+    compile 'org.eclipse.jetty:jetty-servlet:9.4.26.v20200117'
+    compile 'org.eclipse.jetty:jetty-webapp:9.4.26.v20200117'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
