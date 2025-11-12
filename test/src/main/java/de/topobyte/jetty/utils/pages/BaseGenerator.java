@@ -24,18 +24,19 @@ import java.io.IOException;
 import org.jsoup.nodes.Element;
 
 import de.topobyte.cachebusting.CacheBusting;
+import de.topobyte.jetty.utils.Website;
 import de.topobyte.jetty.utils.widgets.MainMenu;
 import de.topobyte.jsoup.FaviconUtil;
-import de.topobyte.pagegen.core.Context;
+import de.topobyte.pagegen.bootstrap.Bootstrap3Generator;
 import de.topobyte.webpaths.WebPath;
 import de.topobyte.webpaths.WebPaths;
 
-public class BaseGenerator extends BootstrapGenerator
+public class BaseGenerator extends Bootstrap3Generator
 {
 
-	public BaseGenerator(Context context, WebPath path)
+	public BaseGenerator(WebPath path)
 	{
-		super(context, path);
+		super(path, Website.INSTANCE.getCacheBuster());
 	}
 
 	@Override

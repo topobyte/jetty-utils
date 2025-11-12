@@ -1,56 +1,36 @@
-// Copyright 2020 Sebastian Kuerten
-//
-// This file is part of jetty-utils.
-//
-// jetty-utils is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// jetty-utils is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public License
-// along with jetty-utils. If not, see <http://www.gnu.org/licenses/>.
-
 package de.topobyte.jetty.utils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.function.Consumer;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.jsoup.nodes.Document;
 
 import de.topobyte.jetty.utils.pages.ErrorGenerator;
 import de.topobyte.jsoup.nodes.Element;
-import de.topobyte.pagegen.core.Context;
 import de.topobyte.webpaths.WebPath;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class ServletUtil
 {
 
-	public static void respond404(Context context, WebPath output,
-			HttpServletResponse response) throws IOException
+	public static void respond404(WebPath output, HttpServletResponse response,
+			Void data) throws IOException
 	{
-		respond(404, context, output, response, content -> {
+		respond(404, output, response, content -> {
 			ErrorUtil.write404(content);
-		});
+		}, data);
 	}
 
-	public static void respond404(Context context, WebPath output,
-			HttpServletResponse response, Consumer<Element> contentGenerator)
-			throws IOException
+	public static void respond404(WebPath output, HttpServletResponse response,
+			Consumer<Element<?>> contentGenerator, Void data) throws IOException
 	{
-		respond(404, context, output, response, contentGenerator);
+		respond(404, output, response, contentGenerator, data);
 	}
 
-	public static void respond(int code, Context context, WebPath output,
-			HttpServletResponse response, Consumer<Element> contentGenerator)
-			throws IOException
+	public static void respond(int code, WebPath output,
+			HttpServletResponse response, Consumer<Element<?>> contentGenerator,
+			Void data) throws IOException
 	{
 		response.setStatus(code);
 
@@ -58,9 +38,9 @@ public class ServletUtil
 
 		PrintWriter writer = response.getWriter();
 
-		ErrorGenerator generator = new ErrorGenerator(context, output);
+		ErrorGenerator generator = new ErrorGenerator(output);
 		generator.generate();
-		Element content = generator.getContent();
+		Element<?> content = generator.getContent();
 
 		contentGenerator.accept(content);
 

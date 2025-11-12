@@ -19,15 +19,14 @@ package de.topobyte.jetty.utils.pages;
 
 import java.io.IOException;
 
-import de.topobyte.pagegen.core.Context;
 import de.topobyte.webpaths.WebPath;
 
 public class ErrorGenerator extends BaseGenerator
 {
 
-	public ErrorGenerator(Context context, WebPath path)
+	public ErrorGenerator(WebPath path)
 	{
-		super(context, path);
+		super(path);
 	}
 
 	@Override

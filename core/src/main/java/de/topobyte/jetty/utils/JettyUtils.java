@@ -20,16 +20,17 @@ package de.topobyte.jetty.utils;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.SessionTrackingMode;
+import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee10.servlet.ServletHolder;
+import org.eclipse.jetty.ee10.servlet.SessionHandler;
 
-import org.eclipse.jetty.server.session.SessionHandler;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
+import jakarta.servlet.SessionTrackingMode;
 
 public class JettyUtils
 {
 
-	public static void setSessionTracking(ServletContextHandler servletContextHandler,
+	public static void setSessionTracking(
+			ServletContextHandler servletContextHandler,
 			SessionTrackingMode mode)
 	{
 		Set<SessionTrackingMode> sessionTracking = new HashSet<>();
@@ -44,13 +45,11 @@ public class JettyUtils
 	{
 		ServletHolder holder = new ServletHolder();
 		holder.setName("default");
-		holder.setClassName("org.eclipse.jetty.servlet.DefaultServlet");
+		holder.setClassName("org.eclipse.jetty.ee10.servlet.ResourceServlet");
 		holder.setInitParameter("dirAllowed", "false");
 		holder.setInitOrder(1);
 		servletContextHandler.getServletHandler().addServletWithMapping(holder,
 				"/");
-		servletContextHandler.getServletHandler().getServletMapping("/")
-				.setDefault(true);
 	}
 
 }

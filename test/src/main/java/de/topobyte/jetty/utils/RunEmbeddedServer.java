@@ -20,17 +20,16 @@ package de.topobyte.jetty.utils;
 import java.nio.file.Path;
 import java.util.EnumSet;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.SessionTrackingMode;
-
+import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.util.resource.PathResource;
-import org.eclipse.jetty.util.resource.ResourceCollection;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 
 import de.topobyte.system.utils.SystemPaths;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.SessionTrackingMode;
 
 public class RunEmbeddedServer
 {
@@ -64,13 +63,13 @@ public class RunEmbeddedServer
 				SessionTrackingMode.COOKIE);
 
 		Path pathProject = SystemPaths.CWD;
-		Path pathResYarn = pathProject.resolve("src/assets/vendor");
 
-		ResourceCollection allResources = new ResourceCollection(
-				new PathResource(pathProject.resolve("build/static")),
-				new VirtualPathResource(pathResYarn, "/client"));
+		ResourceFactory resourceFactory = ResourceFactory
+				.of(servletContextHandler);
+		Resource resources = resourceFactory
+				.newResource(pathProject.resolve("build/static"));
 
-		servletContextHandler.setBaseResource(allResources);
+		servletContextHandler.setBaseResource(resources);
 
 		server.setHandler(servletContextHandler);
 

@@ -5,21 +5,21 @@ plugins {
 dependencies {
     implementation project(':jetty-utils')
 
-    implementation 'de.topobyte:jsoup-elements:0.1.3'
+    implementation 'de.topobyte:jsoup-elements:0.2.1'
     implementation 'de.topobyte:jsoup-bootstrap:0.4.1'
-    implementation 'de.topobyte:jsoup-utils:0.1.5'
-    implementation 'de.topobyte:jsoup-servlet:0.1.1'
-    implementation 'de.topobyte:jsoup-jquery:0.0.1'
-    implementation 'de.topobyte:webpaths-core:0.0.3'
-    implementation 'de.topobyte:webgun-core:0.0.2'
-    implementation 'de.topobyte:webgun-resolving:0.0.2'
-    implementation 'de.topobyte:pagegen-core:0.1.0'
-    implementation 'de.topobyte:pagegen-bootstrap:0.1.1'
-    implementation 'de.topobyte:servlet-utils:0.0.2'
+    implementation 'de.topobyte:jsoup-utils:0.2.1'
+    implementation 'de.topobyte:jsoup-servlet:0.3.0'
+    implementation 'de.topobyte:jsoup-jquery:0.1.0'
+    implementation 'de.topobyte:webpaths-core:0.0.4'
+    implementation 'de.topobyte:webgun-core:1.5.0'
+    implementation 'de.topobyte:webgun-resolving:1.5.0'
+    implementation 'de.topobyte:pagegen-core:1.2.2'
+    implementation 'de.topobyte:pagegen-bootstrap:1.3.0'
+    implementation 'de.topobyte:servlet-utils:0.1.0'
     implementation 'de.topobyte:system-utils:0.0.1'
 
     implementation 'org.slf4j:slf4j-api:1.7.20'
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'ch.qos.logback:logback-classic:1.5.21'
 }
 
 task copyJars(type: Copy) {
@@ -44,9 +44,11 @@ cacheBusting {
     input = []
     input += 'res'
     input += 'build/favicons'
+    input += 'src/assets/vendor'
 }
 
 clientDependencies {
+    installDir = 'src/assets/vendor/client'
     copyExcludes = ['**/*.map', '**/Gruntfile.js', 'gulpfile.js', 'source/**']
     yarn {
         'jquery'('2.2.2')

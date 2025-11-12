@@ -20,13 +20,6 @@ package de.topobyte.jetty.utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +29,11 @@ import de.topobyte.jsoup.JsoupServletUtil;
 import de.topobyte.webgun.resolving.PathResolver;
 import de.topobyte.webpaths.WebPath;
 import de.topobyte.webpaths.WebPaths;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/*")
 public class IndexServlet extends HttpServlet
@@ -45,7 +43,7 @@ public class IndexServlet extends HttpServlet
 
 	private static final long serialVersionUID = 1L;
 
-	static List<PathResolver<WebContext>> resolvers = new ArrayList<>();
+	static List<PathResolver<ContentGeneratable, Void>> resolvers = new ArrayList<>();
 	static {
 		resolvers.add(new SimplePathResolver());
 	}
@@ -57,17 +55,13 @@ public class IndexServlet extends HttpServlet
 		String uri = request.getRequestURI();
 		WebPath path = WebPaths.get(uri);
 
-		Map<String, String[]> parameters = request.getParameterMap();
-
 		logger.info("URI: " + uri);
 		logger.info("Path: " + path);
 
-		WebContext context = new WebContext();
-
 		ContentGeneratable generator = null;
 
-		for (PathResolver<WebContext> resolver : resolvers) {
-			generator = resolver.getGenerator(path, context, parameters);
+		for (PathResolver<ContentGeneratable, Void> resolver : resolvers) {
+			generator = resolver.getGenerator(path, request, null);
 			if (generator != null) {
 				break;
 			}
@@ -76,7 +70,7 @@ public class IndexServlet extends HttpServlet
 		if (generator != null) {
 			JsoupServletUtil.respond(response, generator);
 		} else {
-			ServletUtil.respond404(context, path, response);
+			ServletUtil.respond404(path, response, null);
 		}
 	}
 

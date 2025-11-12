@@ -20,15 +20,14 @@ package de.topobyte.jetty.utils.pages;
 import java.io.IOException;
 
 import de.topobyte.jsoup.HTML;
-import de.topobyte.pagegen.core.Context;
 import de.topobyte.webpaths.WebPath;
 
 public class IndexGenerator extends BaseGenerator
 {
 
-	public IndexGenerator(Context context, WebPath path)
+	public IndexGenerator(WebPath path)
 	{
-		super(context, path);
+		super(path);
 	}
 
 	@Override

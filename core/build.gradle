@@ -4,9 +4,9 @@ if (project.hasProperty("topobyte")) {
 }
 
 dependencies {
-    api 'org.eclipse.jetty:jetty-server:9.4.26.v20200117'
-    api 'org.eclipse.jetty:jetty-servlet:9.4.26.v20200117'
-    api 'org.eclipse.jetty:jetty-webapp:9.4.26.v20200117'
+    api 'org.eclipse.jetty:jetty-server:12.1.3'
+    api 'org.eclipse.jetty.ee10:jetty-ee10-servlet:12.1.3'
+    api 'org.eclipse.jetty.ee10:jetty-ee10-webapp:12.1.3'
 }
 
 java {

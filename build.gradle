@@ -4,8 +4,8 @@ buildscript {
         maven { url = 'https://mvn.topobyte.de' }
     }
     dependencies {
-        classpath 'de.topobyte:gradle-generate-favicons-plugin:0.0.2'
-        classpath 'de.topobyte:gradle-cache-busting-plugin:0.0.3'
+        classpath 'de.topobyte:gradle-generate-favicons-plugin:0.0.3'
+        classpath 'de.topobyte:gradle-cache-busting-plugin:0.0.5'
     }
 }
 

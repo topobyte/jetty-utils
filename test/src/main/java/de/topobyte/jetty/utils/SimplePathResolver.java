@@ -17,24 +17,24 @@
 
 package de.topobyte.jetty.utils;
 
-import java.util.Map;
-
 import de.topobyte.jetty.utils.pages.IndexGenerator;
 import de.topobyte.jsoup.ContentGeneratable;
 import de.topobyte.webgun.resolving.pathspec.PathSpecResolver;
 import de.topobyte.webpaths.WebPath;
+import jakarta.servlet.http.HttpServletRequest;
 
-public class SimplePathResolver extends PathSpecResolver<WebContext>
+public class SimplePathResolver
+		extends PathSpecResolver<ContentGeneratable, Void>
 {
 
 	@Override
-	public ContentGeneratable getGenerator(WebPath path, WebContext context,
-			Map<String, String[]> parameters)
+	public ContentGeneratable getGenerator(WebPath path,
+			HttpServletRequest request, Void data)
 	{
 		if (path.getNameCount() == 0) {
-			return new IndexGenerator(context, path);
+			return new IndexGenerator(path);
 		}
-		return super.getGenerator(path, context, parameters);
+		return super.getGenerator(path, request, data);
 	}
 
 }
