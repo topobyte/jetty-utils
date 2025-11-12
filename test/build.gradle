@@ -1,21 +1,25 @@
+plugins {
+    id 'com.magnetichq.client-dependencies' version '2.0.0'
+}
+
 dependencies {
-    compile project(':jetty-utils')
+    implementation project(':jetty-utils')
 
-    compile 'de.topobyte:jsoup-elements:0.1.3'
-    compile 'de.topobyte:jsoup-bootstrap:0.4.1'
-    compile 'de.topobyte:jsoup-utils:0.1.5'
-    compile 'de.topobyte:jsoup-servlet:0.1.1'
-    compile 'de.topobyte:jsoup-jquery:0.0.1'
-    compile 'de.topobyte:webpaths-core:0.0.3'
-    compile 'de.topobyte:webgun-core:0.0.2'
-    compile 'de.topobyte:webgun-resolving:0.0.2'
-    compile 'de.topobyte:pagegen-core:0.1.0'
-    compile 'de.topobyte:pagegen-bootstrap:0.1.1'
-    compile 'de.topobyte:servlet-utils:0.0.2'
-    compile 'de.topobyte:system-utils:0.0.1'
+    implementation 'de.topobyte:jsoup-elements:0.1.3'
+    implementation 'de.topobyte:jsoup-bootstrap:0.4.1'
+    implementation 'de.topobyte:jsoup-utils:0.1.5'
+    implementation 'de.topobyte:jsoup-servlet:0.1.1'
+    implementation 'de.topobyte:jsoup-jquery:0.0.1'
+    implementation 'de.topobyte:webpaths-core:0.0.3'
+    implementation 'de.topobyte:webgun-core:0.0.2'
+    implementation 'de.topobyte:webgun-resolving:0.0.2'
+    implementation 'de.topobyte:pagegen-core:0.1.0'
+    implementation 'de.topobyte:pagegen-bootstrap:0.1.1'
+    implementation 'de.topobyte:servlet-utils:0.0.2'
+    implementation 'de.topobyte:system-utils:0.0.1'
 
-    compile 'org.slf4j:slf4j-api:1.7.20'
-    compile 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'org.slf4j:slf4j-api:1.7.20'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
 }
 
 task copyJars(type: Copy) {
@@ -25,11 +29,11 @@ task copyJars(type: Copy) {
 
 task copyDeps(type: Copy) {
     into "$buildDir/lib-run"
-    from configurations.runtime
+    from configurations.runtimeClasspath
 }
 
 task createRuntime(dependsOn: [copyJars, copyDeps]) {
-    description 'Setup the execution environment for the main scripts'
+    description = 'Setup the execution environment for the main scripts'
 }
 
 favicons {

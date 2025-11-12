@@ -4,31 +4,25 @@ if (project.hasProperty("topobyte")) {
 }
 
 dependencies {
-    compile 'org.eclipse.jetty:jetty-server:9.4.26.v20200117'
-    compile 'org.eclipse.jetty:jetty-servlet:9.4.26.v20200117'
-    compile 'org.eclipse.jetty:jetty-webapp:9.4.26.v20200117'
+    api 'org.eclipse.jetty:jetty-server:9.4.26.v20200117'
+    api 'org.eclipse.jetty:jetty-servlet:9.4.26.v20200117'
+    api 'org.eclipse.jetty:jetty-webapp:9.4.26.v20200117'
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives sourcesJar
+java {
+    withSourcesJar()
 }
 
 def pomInfo = new XmlSlurper().parse(new File(projectDir, 'info.pom'));
 
-afterEvaluate { project ->
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                pom.project {
-                    name pomInfo.name
-                    description pomInfo.description
-                    url pomInfo.url
-                }
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            pom {
+                name = "$pomInfo.name"
+                description = "$pomInfo.description"
+                url = "$pomInfo.url"
             }
         }
     }
